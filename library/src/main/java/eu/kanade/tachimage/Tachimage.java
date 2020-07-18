@@ -19,15 +19,10 @@ public class Tachimage {
     private final static String TAG = "Tachimage";
 
     private static Field bitmapWidthField;
-
     private static Field bitmapHeightField;
-
     private static Field bitmapNativePtr;
-
     private static Field bitmapBuffer;
-
     private static Method bitmapNativeReconfigure;
-
     private static Field configNativeInt;
 
     static {
@@ -102,7 +97,7 @@ public class Tachimage {
                 int length = ((byte[]) bitmapBuffer.get(bitmap)).length;
                 int nativeInt = configNativeInt.getInt(bitmap.getConfig());
                 bitmapNativeReconfigure.invoke(bitmap, bitmapPtr, width, height, nativeInt, length, false);
-            } else{
+            } else {
                 nativeChangeSize21(bitmapPtr, width, height);
             }
             bitmapWidthField.set(bitmap, width);

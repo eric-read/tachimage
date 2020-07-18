@@ -1,26 +1,26 @@
 #include "borders.h"
 
 bool inline isFilled_ARGB_8888(const void *pixels, int width, int x, int y) {
-    const uint32_t *pixelPtr = (uint32_t *)pixels + (y * width + x);
+    const uint32_t *pixelPtr = (uint32_t *) pixels + (y * width + x);
 
     // In this format, Skia stores the red color in the first byte, regardless of the endianness.
-    return *((uint8_t *)pixelPtr) < redThreshold_RGB_A8888;
+    return *((uint8_t *) pixelPtr) < redThreshold_RGB_A8888;
 }
 
 bool inline isFilled_RGB_565(const void *pixels, int width, int x, int y) {
-    const uint16_t pixel = *((uint16_t *)pixels + (y * width + x));
+    const uint16_t pixel = *((uint16_t *) pixels + (y * width + x));
     return pixel < redThreshold_RGB_565;
 }
 
 bool inline isFilled_A8(const void *pixels, int width, int x, int y) {
-    const uint8_t pixel = *((uint8_t *)pixels + (y * width + x));
+    const uint8_t pixel = *((uint8_t *) pixels + (y * width + x));
     return pixel < redThreshold_A8;
 }
 
 /** Return the first x position where there is a substantial amount of fill,
  * starting the search from the left. */
 template<typename F>
-int findBorderLeft(F&& func, const void *pixels, int width, int height, int top, int bottom) {
+int findBorderLeft(F &&func, const void *pixels, int width, int height, int top, int bottom) {
     int x, y;
     const int filledLimit = (int) round(height * filledRatioLimit / 2);
 
@@ -28,7 +28,7 @@ int findBorderLeft(F&& func, const void *pixels, int width, int height, int top,
     for (x = 0; x < width; x++) {
         int filledCount = 0;
 
-        for (y = top; y < bottom; y+=2) {
+        for (y = top; y < bottom; y += 2) {
             if (func(pixels, width, x, y)) {
                 filledCount++;
             }
@@ -47,7 +47,7 @@ int findBorderLeft(F&& func, const void *pixels, int width, int height, int top,
 /** Return the first x position where there is a substantial amount of fill,
  * starting the search from the right. */
 template<typename F>
-int findBorderRight(F&& func, const void *pixels, int width, int height, int top, int bottom) {
+int findBorderRight(F &&func, const void *pixels, int width, int height, int top, int bottom) {
     int x, y;
     const int filledLimit = (int) round(height * filledRatioLimit / 2);
 
@@ -55,7 +55,7 @@ int findBorderRight(F&& func, const void *pixels, int width, int height, int top
     for (x = width - 1; x >= 0; x--) {
         int filledCount = 0;
 
-        for (y = top; y < bottom; y+=2) {
+        for (y = top; y < bottom; y += 2) {
             if (func(pixels, width, x, y)) {
                 filledCount++;
             }
@@ -74,7 +74,7 @@ int findBorderRight(F&& func, const void *pixels, int width, int height, int top
 /** Return the first y position where there is a substantial amount of fill,
  * starting the search from the top. */
 template<typename F>
-int findBorderTop(F&& func, const void *pixels, int width, int height) {
+int findBorderTop(F &&func, const void *pixels, int width, int height) {
     int x, y;
     const int filledLimit = (int) round(width * filledRatioLimit / 2);
 
@@ -82,7 +82,7 @@ int findBorderTop(F&& func, const void *pixels, int width, int height) {
     for (y = 0; y < height; y++) {
         int filledCount = 0;
 
-        for (x = 0; x < width; x+=2) {
+        for (x = 0; x < width; x += 2) {
             if (func(pixels, width, x, y)) {
                 filledCount++;
             }
@@ -101,7 +101,7 @@ int findBorderTop(F&& func, const void *pixels, int width, int height) {
 /** Return the first y position where there is a substantial amount of fill,
  * starting the search from the bottom. */
 template<typename F>
-int findBorderBottom(F&& func, const void *pixels, int width, int height) {
+int findBorderBottom(F &&func, const void *pixels, int width, int height) {
     int x, y;
     const int filledLimit = (int) round(width * filledRatioLimit / 2);
 
@@ -109,7 +109,7 @@ int findBorderBottom(F&& func, const void *pixels, int width, int height) {
     for (y = height - 1; y >= 0; y--) {
         int filledCount = 0;
 
-        for (x = 0; x < width; x+=2) {
+        for (x = 0; x < width; x += 2) {
             if (func(pixels, width, x, y)) {
                 filledCount++;
             }
@@ -126,7 +126,7 @@ int findBorderBottom(F&& func, const void *pixels, int width, int height) {
 }
 
 template<typename F>
-Borders findBorders(F&& func, const void *pixels, int width, int height) {
+Borders findBorders(F &&func, const void *pixels, int width, int height) {
     int top = findBorderTop(func, pixels, width, height);
     int bottom = findBorderBottom(func, pixels, width, height);
 

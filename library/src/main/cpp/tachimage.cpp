@@ -35,7 +35,7 @@ Borders findBorders(void *pixels, int width, int height, int format) {
     } else if (format == ANDROID_BITMAP_FORMAT_A_8) {
         return findBorders_A8(pixels, width, height);
     } else {
-        return { .left = 0, .top = 0, .right = width, .bottom = height };
+        return {.left = 0, .top = 0, .right = width, .bottom = height};
     }
 }
 
@@ -62,12 +62,11 @@ Java_eu_kanade_tachimage_Tachimage_nativeFindBorders(JNIEnv *env, jclass type, j
 
 extern "C" JNIEXPORT
 bool JNICALL
-Java_eu_kanade_tachimage_Tachimage_nativeCrop(JNIEnv *env, jclass type, jobject bitmap,
-                                              uint32_t left, uint32_t top, uint32_t width,
-                                              uint32_t height) {
-
+Java_eu_kanade_tachimage_Tachimage_nativeCrop(
+        JNIEnv *env, jclass type, jobject bitmap, uint32_t left, uint32_t top, uint32_t width, uint32_t height
+) {
     AndroidBitmapInfo info;
-    void* pixels;
+    void *pixels;
 
     if (AndroidBitmap_getInfo(env, bitmap, &info) < 0) {
         return false;
@@ -98,10 +97,10 @@ Java_eu_kanade_tachimage_Tachimage_nativeCrop(JNIEnv *env, jclass type, jobject 
 
 extern "C" JNIEXPORT
 void JNICALL
-Java_eu_kanade_tachimage_Tachimage_nativeChangeSize21(JNIEnv *env, jclass type, jlong bitmapPtr,
-                                                      uint32_t newWidth, uint32_t newHeight) {
-
-    SkBitmapStub21 * stubPtr = (SkBitmapStub21 *) bitmapPtr;
+Java_eu_kanade_tachimage_Tachimage_nativeChangeSize21(
+        JNIEnv *env, jclass type, jlong bitmapPtr, uint32_t newWidth, uint32_t newHeight
+) {
+    SkBitmapStub21 *stubPtr = (SkBitmapStub21 *) bitmapPtr;
     stubPtr->fRowBytes = stubPtr->fRowBytes / stubPtr->fInfo.fWidth * newWidth;
     stubPtr->fInfo.fWidth = newWidth;
     stubPtr->fInfo.fHeight = newHeight;
