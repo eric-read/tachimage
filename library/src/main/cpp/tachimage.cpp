@@ -96,29 +96,6 @@ Java_eu_kanade_tachimage_Tachimage_nativeCrop(JNIEnv *env, jclass type, jobject 
     return result;
 }
 
-template<class T> void changeImageSize(T *bitmapPtr, uint32_t newWidth, uint32_t newHeight) {
-    bitmapPtr->fRowBytes = bitmapPtr->fRowBytes / bitmapPtr->fWidth * newWidth;
-    bitmapPtr->fWidth = newWidth;
-    bitmapPtr->fHeight = newHeight;
-}
-
-extern "C" JNIEXPORT
-void JNICALL
-Java_eu_kanade_tachimage_Tachimage_nativeChangeSize16(JNIEnv *env, jclass type, jlong bitmapPtr,
-                                                      uint32_t newWidth, uint32_t newHeight) {
-
-    changeImageSize((SkBitmapStub16 *) bitmapPtr, newWidth, newHeight);
-}
-
-extern "C" JNIEXPORT
-void JNICALL
-Java_eu_kanade_tachimage_Tachimage_nativeChangeSize18(JNIEnv *env, jclass type, jlong bitmapPtr,
-                                                      uint32_t newWidth, uint32_t newHeight) {
-
-    changeImageSize((SkBitmapStub18 *) bitmapPtr, newWidth, newHeight);
-}
-
-
 extern "C" JNIEXPORT
 void JNICALL
 Java_eu_kanade_tachimage_Tachimage_nativeChangeSize21(JNIEnv *env, jclass type, jlong bitmapPtr,

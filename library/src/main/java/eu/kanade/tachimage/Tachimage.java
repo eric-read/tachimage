@@ -3,10 +3,11 @@ package eu.kanade.tachimage;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.Keep;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -101,13 +102,8 @@ public class Tachimage {
                 int length = ((byte[]) bitmapBuffer.get(bitmap)).length;
                 int nativeInt = configNativeInt.getInt(bitmap.getConfig());
                 bitmapNativeReconfigure.invoke(bitmap, bitmapPtr, width, height, nativeInt, length, false);
-            }
-            else if (Build.VERSION.SDK_INT >= 21) {
+            } else{
                 nativeChangeSize21(bitmapPtr, width, height);
-            } else if (Build.VERSION.SDK_INT >= 18) {
-                nativeChangeSize18(bitmapPtr, width, height);
-            } else {
-                nativeChangeSize16(bitmapPtr, width, height);
             }
             bitmapWidthField.set(bitmap, width);
             bitmapHeightField.set(bitmap, height);
@@ -124,10 +120,6 @@ public class Tachimage {
     private native static Rect nativeFindBorders(@NonNull Bitmap bitmap);
 
     private native static boolean nativeCrop(@NonNull Bitmap bitmap, int left, int top, int width, int height);
-
-    private native static void nativeChangeSize16(long bitmapPtr, int newWidth, int newHeight);
-
-    private native static void nativeChangeSize18(long bitmapPtr, int newWidth, int newHeight);
 
     private native static void nativeChangeSize21(long bitmapPtr, int newWidth, int newHeight);
 

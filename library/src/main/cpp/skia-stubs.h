@@ -5,63 +5,6 @@
 
 #include <stdint.h>
 
-class SkBitmapStub16 {
-public:
-    mutable void*  fMipMap;
-    mutable void*  fPixelRef;
-    mutable size_t fPixelRefOffset;
-    mutable int    fPixelLockCount;
-    mutable void*  fPixels;
-    mutable void*  fColorTable;
-    mutable int    fRawPixelGenerationID;
-
-    uint32_t fRowBytes;
-    uint32_t fWidth;
-    uint32_t fHeight;
-    uint8_t  fConfig;
-    uint8_t  fFlags;
-    uint8_t  fBytesPerPixel;
-
-    enum Config {
-        kNo_Config,
-        kA1_Config,
-        kA8_Config,
-        kIndex8_Config,
-        kRGB_565_Config,
-        kARGB_4444_Config,
-        kARGB_8888_Config,
-        kConfigCount
-    };
-};
-
-class SkBitmapStub18 {
-public:
-    mutable void*  fMipMap;
-    mutable void*  fPixelRef;
-    mutable size_t fPixelRefOffset;
-    mutable int    fPixelLockCount;
-    mutable void*  fPixels;
-    mutable void*  fColorTable;
-
-    uint32_t fRowBytes;
-    uint32_t fWidth;
-    uint32_t fHeight;
-    uint8_t  fConfig;
-    uint8_t  fFlags;
-    uint8_t  fBytesPerPixel;
-
-    enum Config {
-        kNo_Config,
-        kA1_Config,
-        kA8_Config,
-        kIndex8_Config,
-        kRGB_565_Config,
-        kARGB_4444_Config,
-        kARGB_8888_Config,
-        kConfigCount
-    };
-};
-
 class SkBitmapStub21 {
 public:
     enum SkColorType {
